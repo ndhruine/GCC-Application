@@ -10,7 +10,7 @@
     <color name="blue">#569AFF</color> <!-- Biru cerah yang masih terlihat di mode gelap -->
 
     <!-- Fonts -->
-    <color name="black">#E0E0E0</color> <!-- Abu-abu terang untuk teks agar kontras dengan latar belakang gelap -->
+    <color name="black">#FFFFFF</color> <!-- Abu-abu terang untuk teks agar kontras dengan latar belakang gelap -->
     <color name="white">#454343</color> <!-- Putih untuk elemen yang membutuhkan visibilitas tinggi -->
 
     <color name="strokeRounded">#2c2c2c</color>

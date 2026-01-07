@@ -34,16 +34,32 @@ class LoginViewModel : ViewModel() {
                             .addOnSuccessListener { document ->
                                 if (document.exists()) {
                                     val role = document.getString("role") ?: "user"
-                                    val fullName = document.getString("name") ?: "Unknown"
-                                    val address = document.getString("address") ?: "Unknown"
+                                    val fullName = document.getString("name")
+                                    val address = document.getString("address")
+                                    val noHp = document.getString("phone_number")
+                                    val photo_url = document.getString("photo_url")
 
                                     // Simpan token dan data lainnya ke SharedPreferences
                                     val userPreferences = UserPreferences(context)
-                                    userPreferences.saveEmail(email)
-                                    userPreferences.saveFullName(fullName)
                                     userPreferences.saveRole(role)
                                     userPreferences.saveUid(uid)
-                                    userPreferences.saveAddress(address)
+                                    userPreferences.saveEmail(email)
+                                    if (fullName != null && noHp != null && photo_url != null && address != null) {
+                                        userPreferences.saveFullName(fullName)
+                                        userPreferences.saveAddress(address)
+                                        userPreferences.saveUrlProfile(photo_url)
+                                        userPreferences.saveNoHp(noHp)
+                                    }
+//                                    if (noHp != null) {
+//
+//                                    }
+//
+//                                    if (photo_url != null) {
+//
+//                                    }
+//                                    if (address != null) {
+//
+//                                    }
 
 
                                     onSuccess()

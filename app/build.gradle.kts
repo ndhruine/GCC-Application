@@ -15,7 +15,8 @@ android {
         targetSdk = 34
         versionCode = 2
         versionName = "1.1"
-        buildConfigField("String", "BASE_URL","\"https://enabling-indirectly-buzzard.ngrok-free.app/\"")
+        buildConfigField("String", "BASE_URL","\"https://gcc-application-be.vercel.app/api/\"")
+//        buildConfigField("String", "BASE_URL","\"http://192.168.1.13:3000/\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,10 +27,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL","\"https://enabling-indirectly-buzzard.ngrok-free.app/\"")
+            buildConfigField("String", "BASE_URL","\"https://gcc-application-be.vercel.app/api/\"")
         }
         debug {
-            buildConfigField("String", "BASE_URL","\"https://enabling-indirectly-buzzard.ngrok-free.app/\"")
+            buildConfigField("String", "BASE_URL","\"https://gcc-application-be.vercel.app/api/\"")
         }
 
     }
@@ -40,11 +41,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
@@ -83,6 +84,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("com.google.android.material:material:1.9.0")
+    implementation ("com.google.android.gms:play-services-base:18.5.0")
 
+    implementation("com.google.android.gms:play-services-location:21.3.0")
 
 }

@@ -1,5 +1,6 @@
 package com.gcc.gccapplication.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
@@ -33,6 +34,7 @@ class CreateTrashActivity : AppCompatActivity() {
     private lateinit var customTitle: TextView
     private val viewModel: CreateTrashViewModel by viewModels()
 
+    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateTrashBinding.inflate(layoutInflater)
@@ -82,7 +84,7 @@ class CreateTrashActivity : AppCompatActivity() {
                 // Jangan tampilkan placeholder di dropdown
                 if (position == 0) {
                     view.visibility = View.GONE
-                    view.layoutParams = ViewGroup.LayoutParams(0, 0)
+                    view.layoutParams = ViewGroup.LayoutParams(0, 100)
                 } else {
                     view.visibility = View.VISIBLE
                 }

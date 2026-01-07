@@ -70,8 +70,6 @@
     <string name="masukkan_alamat_lengkap_anda">Masukkan Alamat Lengkap anda</string>
 
     <string-array name="array_tipe_sampah">
-
-        <item>Organik</item>
         <item>Botol Plastik Bening</item>
         <item>Botol Plastik Berwarna</item>
         <item>Plastik</item>

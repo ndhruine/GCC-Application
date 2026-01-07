@@ -2,6 +2,7 @@ package com.gcc.gccapplication.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -36,10 +37,14 @@ class LoginActivity : AppCompatActivity() {
                 onSuccess = {
                     userPreferences = UserPreferences(this)
                     Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, PageActivity::class.java)
-                    startActivity(intent)
-                    handleLogin()
-                    finish()
+
+                    // Tambahkan delay sebelum menjalankan intent
+                    android.os.Handler(Looper.getMainLooper()).postDelayed({
+                        val intent = Intent(this, PageActivity::class.java)
+                        startActivity(intent)
+                        handleLogin()
+                        finish()
+                    }, 2000) // Delay 2000 ms (2 detik)
                 },
                 onFailure = { errorMessage ->
                     Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
@@ -47,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             )
         }
+
 
         binding.tvAkun.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)

@@ -2,9 +2,9 @@
 <resources>
 
     <!-- Background -->
-    <color name="primary">#4CAF50</color> <!-- Hijau yang lebih lembut untuk latar belakang utama -->
-    <color name="secondary">#81C784</color> <!-- Hijau muda yang tetap harmonis dengan warna utama -->
-    <color name="accent">#FAFAFA</color> <!-- Warna putih pudar untuk aksen, lebih lembut dari #F9F9F9 -->
+    <color name="primary">#10c45b </color> <!-- Hijau yang lebih lembut untuk latar belakang utama -->
+    <color name="secondary">#10c45b</color> <!-- Hijau muda yang tetap harmonis dengan warna utama -->
+    <color name="accent">#F9F9F9</color> <!-- Warna putih pudar untuk aksen, lebih lembut dari #F9F9F9 -->
 
     <!-- Fonts -->
     <color name="black">#212121</color> <!-- Abu-abu sangat gelap, lebih nyaman untuk teks daripada hitam pekat -->

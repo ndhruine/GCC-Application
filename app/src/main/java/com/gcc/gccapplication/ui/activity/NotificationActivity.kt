@@ -49,7 +49,7 @@ class NotificationActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(true)
             customView = layoutInflater.inflate(R.layout.actionbar_title, null).apply {
                 customTitle = findViewById(R.id.custom_title)
-                customTitle.text = "Detail"
+                customTitle.text = "Notifikasi"
             }
         }
     }

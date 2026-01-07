@@ -36,6 +36,7 @@ import com.gcc.gccapplication.databinding.DialogViewProfilePictureBinding
 import com.gcc.gccapplication.ui.activity.EditProfileActivity
 import com.google.android.datatransport.BuildConfig
 
+@Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
 
     private lateinit var tvNama: TextView
@@ -135,7 +136,8 @@ class ProfileFragment : Fragment() {
             .into(ivProfilePicture)
 
         ivProfilePicture.setOnClickListener{
-            showDialogProfilePicture()
+            if (!URL.isNullOrEmpty())showDialogProfilePicture()
+
         }
 
         // Set click listeners
@@ -149,18 +151,37 @@ class ProfileFragment : Fragment() {
 
         btnLogout.setOnClickListener {
             val uid = userPreferences.getUid()
-            userPreferences.firebaseSignOut()
-            userPreferences.clearFCMToken(uid, onSuccess = {
 
+            // Nonaktifkan button saat proses logout
+            btnLogout.isEnabled = false
+
+            userPreferences.clearFCMToken(uid, onSuccess = {
+                // Hapus preferensi dan logout hanya jika token berhasil dihapus
                 userPreferences.clear()
-                val intent = Intent(activity, ValidationActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-                activity?.finish()
-            }, onFailure = {
-                Log.d("FCM", "Gagal menghapus token FCM dari Firestore ${uid.toString()}", it)
+                userPreferences.firebaseSignOut()
+
+                if (isAdded && activity != null) {
+                    val intent = Intent(requireActivity(), ValidationActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+            }, onFailure = { exception ->
+                // Aktifkan kembali button jika gagal
+                btnLogout.isEnabled = true
+
+                // Tampilkan pesan error ke user
+                Toast.makeText(
+                    context,
+                    "Gagal logout. Silakan coba lagi.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                Log.e("FCM", "Gagal menghapus token FCM: ${exception.message}")
             })
         }
+
+
 
         btnDataSampah.setOnClickListener {
             startActivity(Intent(activity, CreateTrashActivity::class.java))
@@ -229,7 +250,7 @@ class ProfileFragment : Fragment() {
 
     private fun showDialogProfilePicture() {
         val dialogBinding = DialogViewProfilePictureBinding.inflate(LayoutInflater.from(requireContext()))
-        dialogBinding.ivTrashPhoto.setImageURI(userPreferences.getUrlProfile()!!?.toUri())
+        dialogBinding.ivTrashPhoto.setImageURI(userPreferences.getUrlProfile()!!.toUri())
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Foto Profil")
             .setView(dialogBinding.root)

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.TextView
@@ -44,10 +45,14 @@ class EditProfileActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val URL = userPreferences.getUrlProfile()
-        Glide.with(this)
-            .load(URL) // urlPhoto
-            .placeholder(R.drawable.img_dummy_image)
-            .into(binding.ivProfilePicture)
+        if (URL != null) {
+            Log.d("URL", URL)
+            Glide.with(this)
+                .load(URL) // urlPhoto
+                .placeholder(R.drawable.img_dummy_image)
+                .into(binding.ivProfilePicture)
+        }
+
 
 
         val fullName = userPreferences.getFullName() ?: "-"

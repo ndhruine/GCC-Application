@@ -155,7 +155,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setContentTitle(title)
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent) // Kaitkan PendingIntent
+            .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
         // Kirim notifikasi
@@ -173,7 +173,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     Log.d("Notification", "Notification sent successfully")
                 } else {
                     // Tangani error
-                    Log.e("Notification", "Failed to send notification bla bla: ${response.code()}")
+                    Log.e("Notification", "Failed to send notification bla bla: ${ response.errorBody()?.string()}")
                 }
             }
 

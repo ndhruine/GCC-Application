@@ -44,13 +44,10 @@ class TrashbagActivity : AppCompatActivity() {
         // Initialize UserPreferences
         userPreferences = UserPreferences(this)
 
-        // Set up the Toolbar as the ActionBar
         setupToolbar()
 
-        // Set up RecyclerView
         setupRecyclerView()
 
-        // Observe the ViewModel
         observeViewModel()
 
         launcher = registerForActivityResult(

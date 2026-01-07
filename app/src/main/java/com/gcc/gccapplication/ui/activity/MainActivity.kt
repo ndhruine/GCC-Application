@@ -13,6 +13,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun reqPermission() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -89,16 +92,33 @@ class MainActivity : AppCompatActivity() {
         val currentUser = userPreferences.firebaseCurrrentUser()
         val currentEmail = userPreferences.getEmail()
 
-        if (currentUser != null) {
+        if (currentUser != null && currentEmail != null) {
             // Jika pengguna sudah login, arahkan ke PageActivity
             val intent = Intent(this, PageActivity::class.java)
             startActivity(intent)
+            finish() // Tutup aktivitas saat ini
         } else {
+            // Jika pengguna belum login, lakukan logout dan navigasi ke ValidationActivity
+            val uid = userPreferences.getUid()
 
-            // Jika pengguna belum login, arahkan ke ValidationActivity
+            userPreferences.firebaseSignOut()
+
+            userPreferences.clear()
+            // Pindah ke ValidationActivity
             val intent = Intent(this, ValidationActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            finish()
+//            userPreferences.clearFCMToken(uid, onSuccess = {
+//                // Hapus preferensi pengguna
+//
+//
+//
+//            }, onFailure = {
+//                // Jika penghapusan token FCM gagal, log error
+//                Log.d("FCM", "Gagal menghapus token FCM dari Firestore untuk UID: $uid", it)
+//            })
         }
-        finish() // Tutup aktivitas utama setelah berpindah
     }
+
 }

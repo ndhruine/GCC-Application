@@ -191,10 +191,11 @@ class UserPreferences(context: Context) {
         val fullName = getFullName()
         val role = getRole()
         val address = getAddress()
+        val nomor = getNoHp()
         val uid = getUid().toString()
 
         return if (email != null && fullName != null && role != null && address != null) {
-            User(email, fullName, role, address,uid)
+            User(email, fullName, role, address,nomor, uid)
         } else {
             null
         }
@@ -237,5 +238,6 @@ data class User(
     val fullName: String,
     val role: String,
     val address: String,
+    val nomor: String? = null,
     val Uid: String
 )
